@@ -86,17 +86,6 @@ public class Application {
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth.userDetailsService(new ExampleUserService(userDao));
-//			auth.authenticationProvider(new AuthenticationProvider() {
-//				@Override
-//				public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-//					return null;
-//				}
-//
-//				@Override
-//				public boolean supports(Class<?> aClass) {
-//					return false;
-//				}
-//			});
 		}
 
 		@Override
@@ -110,18 +99,4 @@ public class Application {
 					.rememberMe().tokenValiditySeconds(18000);
 		}
 	}
-
-//	@Configuration
-//	@EnableGlobalMethodSecurity(securedEnabled = true)
-//	protected static class AuthenticationSecurity extends GlobalMethodSecurityConfiguration {
-//
-//		@Override
-//		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//			auth.inMemoryAuthentication().withUser("user").password("user").roles("USER")
-//					.and().withUser("admin").password("admin").roles("ADMIN")
-//					.and().withUser("x").password("x").roles("X");
-//		}
-//
-//	}
-
 }
