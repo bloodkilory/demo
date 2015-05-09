@@ -1,6 +1,8 @@
 package com.example.netty;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -15,7 +17,7 @@ public class TimeClient {
 			out.println("QUERY TIME ORDER");
 			System.out.println("Send order to server succeed.");
 			String resp = in.readLine();
-			System.out.println("Now is: " + resp);
+			System.out.println("Now is : " + resp);
 
 		} catch(Exception e) {
 			//
