@@ -22,13 +22,13 @@ public class BookResource {
 	@Autowired
 	private BookDao bookDao;
 
-	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@Secured("ROLE_ADMIN")
 	public List<Book> books() {
 		return this.bookDao.findAll();
 	}
 
-	@RequestMapping(value = "/book/{id}")
+	@RequestMapping(value = "/book/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	public Book book(@PathVariable("id") int id) {
 		return this.bookDao.findById(id);

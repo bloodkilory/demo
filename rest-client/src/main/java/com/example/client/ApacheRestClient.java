@@ -163,11 +163,11 @@ public class ApacheRestClient<R, E> {
 			if(entity != null) {
 				String content = EntityUtils.toString(entity);
 				if(returnType == null) {
-					logger.warn("rest client returnType is null, will return as json string! ");
+					logger.warn("rest client returnType is null, will return as string! ");
 					return (E) content;
 				}
-//				logger.debug("rest client reveiced data:" + json);
 				result = MAPPER.readValue(content, returnType);
+//				result = MAPPER.readValue(content, new TypeReference<E>() {});
 			}
 
 		} catch(NumberFormatException e) {

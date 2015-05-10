@@ -69,7 +69,8 @@ public class Application {
 					httpProtocol.setCompression("on");
 					httpProtocol.setCompressionMinSize(64);
 					String mimeTypes = httpProtocol.getCompressableMimeTypes();
-					String mimeTypesWithJson = mimeTypes + "," + MediaType.APPLICATION_JSON_VALUE;
+					String mimeTypesWithJson = mimeTypes + "," + MediaType.APPLICATION_JSON_VALUE
+							+ "," + MediaType.APPLICATION_XML_VALUE;
 					httpProtocol.setCompressableMimeTypes(mimeTypesWithJson);
 				}
 		);
@@ -91,7 +92,7 @@ public class Application {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			BasicAuthenticationEntryPoint entryPoint = new BasicAuthenticationEntryPoint();
-			entryPoint.setRealmName("ADCC");
+			entryPoint.setRealmName("REST-DEMO");
 			http.exceptionHandling().authenticationEntryPoint(entryPoint);
 			http.requestMatchers().antMatchers("/**").anyRequest()
 					.and().httpBasic()
