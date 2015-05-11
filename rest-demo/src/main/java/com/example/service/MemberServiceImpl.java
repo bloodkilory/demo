@@ -17,6 +17,7 @@ import java.util.List;
 @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
 public class MemberServiceImpl implements MemberService {
 
+	@SuppressWarnings("SpringJavaAutowiringInspection")
 	@Autowired
 	private MemberMapper memberMapper;
 

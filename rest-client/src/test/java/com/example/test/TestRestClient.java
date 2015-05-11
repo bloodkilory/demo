@@ -4,6 +4,7 @@ import com.example.client.ApacheRestClient;
 import com.example.pojo.Member;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,8 +66,12 @@ public class TestRestClient {
 		String accept = ApacheRestClient.JSON;
 		String username = "";
 		String password = "";
-		List<Member> response = client.rest(ApacheRestClient.GET, host, port, path, accept, null, null);
-		System.out.println(response);
+		List<Member> re = new ArrayList<>();
+		List<Member> response = client.rest(ApacheRestClient.GET, host, port, path, accept, List.class, null);
+		// 此处会报java.util.LinkedHashMap cannot be cast to com.example.pojo.Member，范型只在编译期起作用
+		for(Member member : response) {
+			System.out.println(member.getName());
+		}
 	}
 
 	@Test

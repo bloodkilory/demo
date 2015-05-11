@@ -2,6 +2,7 @@ package com.example.client;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;
@@ -25,6 +26,7 @@ import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,11 +66,11 @@ public class ApacheRestClient<R, E> {
 		return rest(method, host, port, uri, accept, null, null, null, null, null, null);
 	}
 
-	public E rest(int method, String host, String port, String uri, String accept, Class<E> returnType) {
+	public E rest(int method, String host, String port, String uri, String accept, Class<?> returnType) {
 		return rest(method, host, port, uri, accept, null, null, returnType, null, null, null);
 	}
 
-	public E rest(int method, String host, String port, String uri, String accept, Class<E> returnType, R request) {
+	public E rest(int method, String host, String port, String uri, String accept, Class<?> returnType, R request) {
 		return rest(method, host, port, uri, accept, null, null, returnType, request, null, null);
 	}
 
@@ -82,19 +84,23 @@ public class ApacheRestClient<R, E> {
 	 * @param host        host ip
 	 * @param port        port
 	 * @param uri         uri
+	 * @param accept      Accept Header
 	 * @param params
 	 * @param requestType
 	 * @param returnType
+	 * @param user        username
+	 * @param pass        password
 	 * @return jackson deserialization object
 	 */
 	@SuppressWarnings("unchecked")
 	public E rest(int method, String host, String port, String uri, String accept, Map<String, String> params,
-	              Class<R> requestType, Class<E> returnType, R request, String user, String pass) {
+	              Class<?> requestType, Class<?> returnType, R request, String user, String pass) {
 
 		E result = null;
 		logger.debug("rest client reqest start, host ip:" + host + ", port:" + port + ", uri:" + uri);
 		CloseableHttpClient httpClient;
 		if(user != null) {
+			// add http-basic authentication with username and password
 			CredentialsProvider provider = new BasicCredentialsProvider();
 			UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(user, pass);
 			provider.setCredentials(AuthScope.ANY, credentials);
@@ -166,8 +172,13 @@ public class ApacheRestClient<R, E> {
 					logger.warn("rest client returnType is null, will return as string! ");
 					return (E) content;
 				}
-				result = MAPPER.readValue(content, returnType);
-//				result = MAPPER.readValue(content, new TypeReference<E>() {});
+
+				if(returnType.isAssignableFrom(List.class)) {
+					result = MAPPER.readValue(content, new TypeReference<E>() {
+					});
+				} else {
+					result = MAPPER.readValue(content, (Class<E>) returnType);
+				}
 			}
 
 		} catch(NumberFormatException e) {
@@ -180,12 +191,17 @@ public class ApacheRestClient<R, E> {
 			try {
 				httpClient.close();
 			} catch(IOException e) {
-				//
+				// do nothing
 			}
 		}
 		return result;
 	}
 
+	/**
+	 * switch @see java.util.Map to String
+	 * @param params
+	 * @return
+	 */
 	private String paramsToString(Map<String, String> params) {
 		StringBuilder builder = new StringBuilder("");
 		if(params != null && params.size() > 0) {
@@ -201,6 +217,11 @@ public class ApacheRestClient<R, E> {
 		return builder.toString();
 	}
 
+	/**
+	 * handle with uri param
+	 * @param uri
+	 * @return
+	 */
 	private String handleUri(String uri) {
 		if(uri == null) {
 			return "";

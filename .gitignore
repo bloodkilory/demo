@@ -6,3 +6,7 @@ rest-client/target/classes/com/example/client/ApacheRestClient.class
 rest-client/target/classes/log4j.properties
 
 rest-client/target/MANIFEST.MF
+
+*.class
+
+*.class
