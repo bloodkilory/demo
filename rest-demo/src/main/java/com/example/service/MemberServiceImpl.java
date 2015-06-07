@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.dao.MemberMapper;
+import com.example.mapper.MemberMapper;
 import com.example.pojo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

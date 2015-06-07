@@ -1,6 +1,8 @@
 package com.example.sort;
 
 
+import com.example.util.SortUtil;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -22,7 +24,7 @@ public class QuickSort {
 			arr[i] = random.nextInt(100);
 		}
 		System.out.println("原始数组: " + Arrays.toString(arr));
-		sort(arr, 0, arraysize - 1);
+		SortUtil.popupSort(arr);
 		System.out.println("排序数组: " + Arrays.toString(arr));
 	}
 
@@ -49,7 +51,7 @@ public class QuickSort {
 			}
 		}
 
-		// 将基准数归位
+		// 将基准数归位，交换基准数和哨兵位置的数
 		array[low] = array[i];
 		array[i] = pivot;
 

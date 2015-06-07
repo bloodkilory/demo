@@ -16,7 +16,7 @@ import javax.sql.DataSource;
  * Created by bloodkilory on 15/5/10.
  */
 @Configuration
-@MapperScan(basePackages = "com.example.dao")
+@MapperScan(basePackages = "com.example.mapper")
 public class DatabaseConfig {
 	@Bean
 	public DataSource dataSource() {
@@ -32,6 +32,7 @@ public class DatabaseConfig {
 
 	@Bean
 	public DataSourceTransactionManager transactionManager() {
+		// 使用JDBC的事务管理器作为mybatis的事务管理器
 		return new DataSourceTransactionManager(dataSource());
 	}
 

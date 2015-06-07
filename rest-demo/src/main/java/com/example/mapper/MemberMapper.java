@@ -1,4 +1,4 @@
-package com.example.dao;
+package com.example.mapper;
 
 import com.example.pojo.Member;
 import org.apache.ibatis.annotations.Insert;
