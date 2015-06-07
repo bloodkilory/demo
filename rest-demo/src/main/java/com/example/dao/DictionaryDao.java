@@ -12,16 +12,16 @@ import java.util.List;
  */
 @Repository
 public class DictionaryDao {
+
 	@Resource
-	private StringRedisTemplate redisTemplate;
+	private StringRedisTemplate stringRedisTemplate;
 
 	public Long add(String word, String meaning) {
-		Long index = redisTemplate.opsForList().rightPush(word, meaning);
-		return index;
+		return stringRedisTemplate.opsForList().rightPush(word, meaning);
 	}
 
 	public List<String> list(String word) {
-		return redisTemplate.opsForList().range(word, 0, 3);
+		return stringRedisTemplate.opsForList().range(word, 0, 3);
 	}
 
 }

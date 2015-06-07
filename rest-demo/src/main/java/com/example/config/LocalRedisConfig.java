@@ -5,7 +5,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
@@ -32,7 +35,19 @@ public class LocalRedisConfig {
 	}
 
 	@Bean
-	public StringRedisTemplate redisTemplate() {
+	public StringRedisTemplate stringRedisTemplate() {
 		return new StringRedisTemplate(jedisConnectionFactory());
+	}
+
+	@SuppressWarnings("unchecked")
+	@Bean
+	public RedisTemplate redisTemplate() {
+		RedisTemplate redisTemplate = new RedisTemplate();
+		redisTemplate.setConnectionFactory(jedisConnectionFactory());
+		redisTemplate.setKeySerializer(new StringRedisSerializer());
+		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+		redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
+		redisTemplate.setHashValueSerializer(new JdkSerializationRedisSerializer());
+		return redisTemplate;
 	}
 }
