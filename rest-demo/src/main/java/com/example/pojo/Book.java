@@ -1,5 +1,7 @@
 package com.example.pojo;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 
 /**
@@ -44,5 +46,14 @@ public class Book implements Serializable{
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("id", id)
+				.append("name", name)
+				.append("price", price)
+				.toString();
 	}
 }
