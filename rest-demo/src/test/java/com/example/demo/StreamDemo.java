@@ -33,24 +33,6 @@ public class StreamDemo {
 	public void testGroup() {
 		Objects.requireNonNull(this.testList);
 
-		//使用传统方法进行分组
-		final Map<Double, List<Book>> map2 = new HashMap<>();
-		long st2 = System.currentTimeMillis();
-		for(Book book : testList) {
-			double price = book.getPrice();
-			if(map2.get(price) == null) {
-				List<Book> list = new ArrayList<>();
-				list.add(book);
-				map2.putIfAbsent(price, list);
-			} else {
-				List<Book> list = map2.get(price);
-				list.add(book);
-				map2.put(price, list);
-			}
-		}
-		long et2 = System.currentTimeMillis();
-		System.out.println("Traditional: " + TimeUnit.MILLISECONDS.toMillis(et2 - st2) + " ms");
-
 		//使用流式计算对List进行分组
 		long st = System.currentTimeMillis();
 		final Map<Double, List<Book>> map = testList
@@ -59,5 +41,46 @@ public class StreamDemo {
 		long et = System.currentTimeMillis();
 		System.out.println("Stream: " + TimeUnit.MILLISECONDS.toMillis(et - st) + " ms");
 
+	}
+
+	/**
+	 * 测试过滤器
+	 */
+	@Test
+	public void testFilter() {
+		List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+		List<Integer> twoEvenSquares =
+				numbers.stream()
+						.filter(n -> {
+							System.out.println("filtering " + n);
+							return n % 2 == 0;
+						})
+						.map(n -> {
+							System.out.println("mapping " + n);
+							return n * n;
+						})
+						.limit(2)
+						.collect(Collectors.toList());
+		System.out.println(twoEvenSquares);
+	}
+
+	/**
+	 * 测试集合字段匹配
+	 */
+	@Test
+	public void testMatch() {
+		boolean b = this.testList.stream().allMatch(t -> t.getPrice() > 100);
+	}
+
+	/**
+	 * 测试排序
+	 */
+	@Test
+	public void testToList() {
+		List<String> bookNames = this.testList.stream()
+				.filter(b -> b.getPrice() < 30)
+				.sorted(Comparator.comparing(Book::getPrice))
+				.map(Book::getName)
+				.collect(Collectors.toList());
 	}
 }
