@@ -1,16 +1,18 @@
 package com.example.demo;
 
-import com.example.pojo.Book;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import com.example.pojo.Book;
+
 /**
  * @author bloodkilory
  *         generate on 15/6/13
+ *         测试Stream接口类
  */
 public class StreamDemo {
 
