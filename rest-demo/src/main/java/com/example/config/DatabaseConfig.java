@@ -1,6 +1,7 @@
 package com.example.config;
 
-import com.mysql.jdbc.Connection;
+import javax.sql.DataSource;
+
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -9,8 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
-import javax.sql.DataSource;
-//import java.sql.Connection;
+import com.mysql.jdbc.Connection;
 
 /**
  * Created by bloodkilory on 15/5/10.

@@ -1,14 +1,19 @@
 package com.example.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
@@ -16,8 +21,18 @@ import redis.clients.jedis.JedisPoolConfig;
  *         generate on 15/6/4
  */
 @Configuration
+@PropertySource("classpath:configs.properties")
 @ComponentScan(basePackages = "com.example.dao")
 public class LocalRedisConfig {
+
+	@Value("${jedis.hostname}")
+	private String hostname;
+
+	@Value("${jedis.port}")
+	private int port;
+
+	@Autowired
+	Environment env;
 
 	@Bean
 	public RedisConnectionFactory jedisConnectionFactory() {
@@ -29,8 +44,8 @@ public class LocalRedisConfig {
 		poolConfig.setTestOnReturn(true);
 		poolConfig.setTestWhileIdle(true);
 		JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(poolConfig);
-		jedisConnectionFactory.setHostName("127.0.0.1");
-		jedisConnectionFactory.setPort(6379);
+		jedisConnectionFactory.setHostName(env.getProperty("jedis.hostname"));
+		jedisConnectionFactory.setPort(Integer.parseInt(env.getProperty("jedis.port")));
 		return jedisConnectionFactory;
 	}
 

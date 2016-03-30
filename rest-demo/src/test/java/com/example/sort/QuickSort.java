@@ -1,8 +1,6 @@
 package com.example.sort;
 
 
-import com.example.util.SortUtil;
-
 import java.util.Arrays;
 import java.util.Random;
 
@@ -24,7 +22,7 @@ public class QuickSort {
 			arr[i] = random.nextInt(100);
 		}
 		System.out.println("原始数组: " + Arrays.toString(arr));
-		SortUtil.popupSort(arr);
+		QuickSort.sort(arr, 0, arr.length - 1);
 		System.out.println("排序数组: " + Arrays.toString(arr));
 	}
 
