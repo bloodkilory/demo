@@ -1,5 +1,7 @@
 package com.example.pojo;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -12,6 +14,7 @@ public class Member {
 	private int age;
 	private double salary;
 	private String sex;
+	private Date birthday;
 
 	public Member() {
 	}
@@ -62,6 +65,14 @@ public class Member {
 
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	@Override

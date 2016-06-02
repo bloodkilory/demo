@@ -8,10 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
@@ -33,8 +30,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @SpringBootApplication
-@ImportResource("applicationContext.xml")
 @EnableAutoConfiguration
+@ImportResource("applicationContext.xml")
+@PropertySource("classpath:configs.properties")
 @ComponentScan
 public class Application {
 
@@ -46,9 +44,17 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+	/**
+	 * Read Project's *.properties file
+	 *
+	 * @return
+	 */
 	@Bean
 	public PropertySourcesPlaceholderConfigurer propertySourcesConfig() {
-		return new PropertySourcesPlaceholderConfigurer();
+		PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+		placeholderConfigurer.setIgnoreUnresolvablePlaceholders(true);
+		placeholderConfigurer.setOrder(1);
+		return placeholderConfigurer;
 	}
 
 	/**

@@ -1,11 +1,14 @@
 package com.example.rest;
 
-import com.example.pojo.Member;
-import com.example.service.MemberService;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.pojo.Member;
+import com.example.service.MemberService;
 
 /**
  * @author bloodkilory
@@ -17,6 +20,8 @@ public class MemberResource {
 
 	@Autowired
 	private MemberService memberService;
+
+	private final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass());
 
 	@RequestMapping(value = "/member/{id}")
 	public Member member(@PathVariable("id") String mid) {

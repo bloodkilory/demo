@@ -1,10 +1,12 @@
 package com.example.dao;
 
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
-import java.util.List;
+
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author bloodkilory
@@ -23,5 +25,10 @@ public class DictionaryDao {
 	public List<String> list(String word) {
 		return stringRedisTemplate.opsForList().range(word, 0, 3);
 	}
+
+    public Boolean add1(String name) {
+        Map<Object, Object> entries = stringRedisTemplate.opsForHash().entries(name);
+        return null;
+    }
 
 }

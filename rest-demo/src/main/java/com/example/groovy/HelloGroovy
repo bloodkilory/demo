@@ -1,0 +1,47 @@
+package com.example.groovy
+//def hello = "Hello Groovy"
+//h = 'Hello Groovy'
+//
+//class StringUtils {
+//    static String sayHello(String name) {
+//        if (name == "Hello Groovy") {
+//            name
+//        } else {
+//            "no"
+//        }
+//    }
+//}
+//
+//void checkHello() {
+//    System.out.println(h)
+//}
+//
+//Book book = new Book(1, 'Groovy Dev', 3.2)
+//
+//println StringUtils.sayHello(hello)
+//println StringUtils.sayHello(h)
+//println book
+//checkHello()
+//
+//def sayHi = {
+//    name ->
+//        if (name == "Jone") {
+//            "Hello Jone"
+//        } else {
+//            "Hi Other"
+//        }
+//}
+//
+//println(sayHi("Jon"))
+//
+//moviet1 = ['1', '2', '3']
+//List moviet2 = new ArrayList<String>()
+//moviet2.add("1")
+//moviet2.add("2")
+//moviet2.add("3")
+//println moviet2 == moviet1
+//
+//println "122123".matches("\\d+")
+
+
+
