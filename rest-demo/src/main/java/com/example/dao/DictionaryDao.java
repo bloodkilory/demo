@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DictionaryDao {
 
-	@Resource
+	@Resource(name = "redisTemplate")
 	private StringRedisTemplate stringRedisTemplate;
 
 	public Long add(String word, String meaning) {

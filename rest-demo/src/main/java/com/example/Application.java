@@ -18,7 +18,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
-import com.example.config.ExampleUserService;
+import com.example.config.SpringSecurityUserDetailConfig;
 import com.example.dao.UserDao;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootApplication
 @EnableAutoConfiguration
 @ImportResource("applicationContext.xml")
-@PropertySource("classpath:configs.properties")
+@PropertySources({@PropertySource(value = "classpath:configs.properties")})
 @ComponentScan
 public class Application {
 
@@ -52,8 +52,8 @@ public class Application {
 	@Bean
 	public PropertySourcesPlaceholderConfigurer propertySourcesConfig() {
 		PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-		placeholderConfigurer.setIgnoreUnresolvablePlaceholders(true);
-		placeholderConfigurer.setOrder(1);
+        placeholderConfigurer.setIgnoreUnresolvablePlaceholders(false);
+        placeholderConfigurer.setOrder(1);
 		return placeholderConfigurer;
 	}
 
@@ -102,8 +102,8 @@ public class Application {
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-			auth.userDetailsService(new ExampleUserService(userDao));
-		}
+            auth.userDetailsService(new SpringSecurityUserDetailConfig(userDao));
+        }
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {

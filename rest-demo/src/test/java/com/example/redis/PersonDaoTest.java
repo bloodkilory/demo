@@ -1,23 +1,26 @@
 package com.example.redis;
 
-import com.example.config.LocalRedisConfig;
-import com.example.dao.PersonDao;
-import com.example.pojo.Person;
-import junit.framework.TestCase;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
+import junit.framework.TestCase;
+
+import com.example.Application;
+import com.example.dao.PersonDao;
+import com.example.pojo.Person;
 
 /**
  * @author bloodkilory
  *         generate on 15/6/8
  */
-@ContextConfiguration(classes = LocalRedisConfig.class)
+@ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PersonDaoTest {
 

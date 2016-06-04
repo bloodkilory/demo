@@ -1,12 +1,14 @@
 package com.example.dao;
 
-import com.example.pojo.Person;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
-import java.util.Map;
+import com.example.pojo.Person;
 
 /**
  * @author bloodkilory
@@ -15,7 +17,7 @@ import java.util.Map;
 @Repository
 public class PersonDaoImpl implements PersonDao {
 
-	@Resource
+	@Resource(name = "objectRedisTemplate")
 	private RedisTemplate<String, Person> redisTemplate;
 
 	@Override

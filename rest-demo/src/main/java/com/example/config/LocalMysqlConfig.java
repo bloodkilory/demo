@@ -13,12 +13,13 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.mysql.jdbc.Connection;
 
 /**
+ * mysql connection config
  * Created by bloodkilory on 15/5/10.
  */
 @Configuration
 @MapperScan(basePackages = "com.example.mapper")
-public class DatabaseConfig {
-	@Bean
+public class LocalMysqlConfig {
+    @Bean
 	public DataSource dataSource() {
 		PooledDataSource dataSource = new PooledDataSource();
 		dataSource.setDriver("com.mysql.jdbc.Driver");

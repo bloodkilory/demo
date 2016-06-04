@@ -1,6 +1,9 @@
 package com.example.redis;
 
-import com.example.config.LocalRedisConfig;
+import static org.junit.Assert.assertNotNull;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -8,15 +11,13 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
-
-import static org.junit.Assert.assertNotNull;
+import com.example.Application;
 
 /**
  * @author bloodkilory
  *         generate on 15/6/4
  */
-@ContextConfiguration(classes = LocalRedisConfig.class)
+@ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LocalRedisConfigTest {
 	@Resource

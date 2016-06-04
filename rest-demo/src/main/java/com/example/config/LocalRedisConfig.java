@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -21,7 +20,6 @@ import redis.clients.jedis.JedisPoolConfig;
  *         generate on 15/6/4
  */
 @Configuration
-@PropertySource("classpath:configs.properties")
 @ComponentScan(basePackages = "com.example.dao")
 public class LocalRedisConfig {
 
@@ -29,7 +27,7 @@ public class LocalRedisConfig {
 	private String hostname;
 
 	@Value("${jedis.port}")
-	private int port;
+	private Integer port;
 
 	@Autowired
 	Environment env;
@@ -49,13 +47,13 @@ public class LocalRedisConfig {
 		return jedisConnectionFactory;
 	}
 
-	@Bean
+	@Bean(name = "redisTemplate")
 	public StringRedisTemplate stringRedisTemplate() {
 		return new StringRedisTemplate(jedisConnectionFactory());
 	}
 
 	@SuppressWarnings("unchecked")
-	@Bean
+	@Bean(name = "objectRedisTemplate")
 	public RedisTemplate redisTemplate() {
 		RedisTemplate redisTemplate = new RedisTemplate();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
