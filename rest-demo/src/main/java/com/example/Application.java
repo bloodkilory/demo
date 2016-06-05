@@ -50,7 +50,7 @@ public class Application {
 	 * @return
 	 */
 	@Bean
-	public PropertySourcesPlaceholderConfigurer propertySourcesConfig() {
+	public static PropertySourcesPlaceholderConfigurer propertySourcesConfig() {
 		PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         placeholderConfigurer.setIgnoreUnresolvablePlaceholders(false);
         placeholderConfigurer.setOrder(1);

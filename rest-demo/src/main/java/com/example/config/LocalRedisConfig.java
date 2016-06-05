@@ -6,14 +6,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import redis.clients.jedis.JedisPoolConfig;
+
+import com.example.service.RedisListenerService;
 
 /**
  * @author bloodkilory
@@ -29,8 +35,17 @@ public class LocalRedisConfig {
 	@Value("${jedis.port}")
 	private Integer port;
 
+	@Value("${redis.topic.tv}")
+	private String subChannelTv;
+
 	@Autowired
 	Environment env;
+
+	/**
+	 * 注入用来订阅的类
+	 */
+	@Autowired
+	private RedisListenerService redisListenerService;
 
 	@Bean
 	public RedisConnectionFactory jedisConnectionFactory() {
@@ -61,6 +76,32 @@ public class LocalRedisConfig {
 		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
 		redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
 		redisTemplate.setHashValueSerializer(new JdkSerializationRedisSerializer());
+		redisTemplate.setEnableTransactionSupport(true);
 		return redisTemplate;
+	}
+
+	/**
+	 * Support for Spring Cache Abstraction
+	 *
+	 * @return
+	 */
+	@Bean
+	public RedisCacheManager redisCacheManager() {
+		return new RedisCacheManager(redisTemplate());
+	}
+
+	@Bean
+	public MessageListenerAdapter messageListenerAdapter() {
+		return new MessageListenerAdapter(redisListenerService);
+	}
+
+	@Bean
+	public RedisMessageListenerContainer messageListenerContainer() {
+		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+		container.setConnectionFactory(jedisConnectionFactory());
+//		Map<MessageListener, Collection<Topic>> listenerMap = new HashMap<>();
+//		listenerMap.put(messageListenerAdapter(), Arrays.asList(new ChannelTopic("tv"), new ChannelTopic("tv2")));
+		container.addMessageListener(messageListenerAdapter(), new ChannelTopic(subChannelTv));
+		return container;
 	}
 }

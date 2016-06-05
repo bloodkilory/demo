@@ -9,6 +9,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import com.mysql.jdbc.Connection;
 
@@ -31,9 +32,14 @@ public class LocalMysqlConfig {
 		return dataSource;
 	}
 
+	/**
+	 * 可同时支持spring-data-redis和mybatis使用
+	 * {@link @Transactional}
+	 *
+	 * @return
+	 */
 	@Bean
-	public DataSourceTransactionManager transactionManager() {
-		// 使用JDBC的事务管理器作为mybatis的事务管理器
+	public PlatformTransactionManager platformTransactionManager() {
 		return new DataSourceTransactionManager(dataSource());
 	}
 

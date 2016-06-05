@@ -6,6 +6,7 @@ package com.example.pojo;
  *         <p>
  *         构建器模式接口
  */
+@FunctionalInterface
 public interface ObjBuilder<T> {
     T build();
 }

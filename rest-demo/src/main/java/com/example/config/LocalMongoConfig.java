@@ -72,7 +72,7 @@ public class LocalMongoConfig {
 
     @Bean
     public MongoDbFactory mongoDbFactory() {
-        SimpleMongoDbFactory factory = new SimpleMongoDbFactory(mongo(), "phoneix");
+        SimpleMongoDbFactory factory = new SimpleMongoDbFactory(mongo(), db);
         return factory;
     }
 
