@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Counter {
     private AtomicInteger atomicI = new AtomicInteger(0);
     private int i = 0;
+    private volatile int vi = 0;
 
     public static void main(String[] args) {
         final Counter cas = new Counter();
@@ -22,6 +23,7 @@ public class Counter {
                 for(int i1 = 0; i1 < 10000; i1++) {
                     cas.count();
                     cas.safeCount();
+                    cas.vcount();
                 }
             });
             ts.add(t);
@@ -38,7 +40,8 @@ public class Counter {
         }
         System.out.println(cas.i);
         System.out.println(cas.atomicI.get());
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(cas.vi);
+        System.out.println(String.format("Time: %d ms", System.currentTimeMillis() - start));
     }
 
     private void safeCount() {
@@ -53,5 +56,9 @@ public class Counter {
 
     private void count() {
         i++;
+    }
+
+    private void vcount() {
+        vi++;
     }
 }
