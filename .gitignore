@@ -24,3 +24,15 @@ MyDemo/src/main/java/com/adcc/mydemo/.DS_Store
 rest-demo/.idea/workspace.xml
 
 rest-demo/.idea/workspace.xml
+
+rest-demo/target/test-classes/log4j.properties
+
+rest-demo/target/classes/com/example/service/MemberServiceImpl.class
+
+rest-demo/target/classes/com/example/service/MemberServiceImpl.class
+
+rest-demo/target/classes/com/example/service/MemberServiceImpl.class
+
+rest-demo/target/classes/com/example/service/MemberServiceImpl.class
+
+*.class
