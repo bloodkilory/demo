@@ -1,4 +1,4 @@
-package com.example.pojo;
+package com.example.common;
 
 /**
  * @author yangkun

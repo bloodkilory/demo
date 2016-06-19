@@ -1,9 +1,11 @@
 package com.example.demo;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
-import com.example.pojo.Book;
+import com.example.pojo.Emp;
 
 /**
  * @author yangkun
@@ -13,10 +15,9 @@ public class ForJavap {
     public static void main(String[] args) {
         List<String> list = Arrays.asList("aaa", "bbb", "cccc");
 
-        final Book b = new Book();
+        Emp e = Emp.builder(UUID.randomUUID().toString(), "zhangsan").age(12)
+                .job("worker").sex("male").salary(new BigDecimal("2000")).build();
 
-        list.forEach(str -> {
 
-        });
     }
 }

@@ -2,7 +2,7 @@ package com.example.executor;
 
 import java.util.concurrent.*;
 
-import com.example.pojo.WorkUnit;
+import com.example.common.WorkUnit;
 
 /**
  * @author yangkun
