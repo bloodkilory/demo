@@ -1,16 +1,14 @@
 package com.example.util;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-import com.example.common.Constants;
 import com.example.exception.FileHandleException;
 
 /**
@@ -18,8 +16,14 @@ import com.example.exception.FileHandleException;
  */
 public class FileUtil {
 
-	/**
-	 * copy file with old way
+    public enum Method {
+        LINE,
+        BYTE,
+        EASY
+    }
+
+    /**
+     * copy file with old way
 	 *
 	 * @param fromPath
 	 * @param toPath
@@ -40,7 +44,9 @@ public class FileUtil {
     }
 
 	/**
-	 * @param fromPath
+     * copy file with fusion mode
+     *
+     * @param fromPath
 	 * @param toPath
      * @param charset {@link StandardCharsets#UTF_8 UTF_8}
      * @throws IOException
@@ -60,23 +66,25 @@ public class FileUtil {
     }
 
 	/**
-	 *
+     * copy file with NIO
+     *
 	 * @param fromPath
 	 * @param toPath
      * @param charset {@link StandardCharsets#UTF_8 UTF_8}
+     * {@link StandardOpenOption#APPEND, #WRITE, #CREATE_NEW...}
      * @throws IOException
 	 */
-    public static void copyFileWithNio(String fromPath, String toPath, Charset charset, String method) {
+    public static void copyFileWithNio(String fromPath, String toPath, Charset charset, Method method) {
         switch(method) {
-            case Constants.LINE:
+            case LINE:
                 try {
 					List<String> lines = Files.readAllLines(Paths.get(fromPath), charset);
-					Files.write(Paths.get(toPath), lines, charset, StandardOpenOption.WRITE);
-				} catch(Exception e) {
+                    Files.write(Paths.get(toPath), lines, charset, StandardOpenOption.APPEND);
+                } catch(Exception e) {
                     throw new FileHandleException(10001, "Copy File Error!, " +
                             "from:[" + fromPath + "], to:[" + toPath + "]\"", e);
                 }
-            case Constants.BYTE:
+            case BYTE:
                 try {
 					byte[] bytes = Files.readAllBytes(Paths.get(fromPath));
 					Files.write(Paths.get(toPath), bytes, StandardOpenOption.WRITE);
@@ -84,9 +92,9 @@ public class FileUtil {
                     throw new FileHandleException(10001, "Copy File Error!, " +
                             "from:[" + fromPath + "], to:[" + toPath + "]\"", e);
                 }
-            case Constants.EASY:
+            case EASY:
                 try { // 存在即覆盖
-                    Files.copy(Paths.get(fromPath), Paths.get(toPath), REPLACE_EXISTING);
+                    Files.copy(Paths.get(fromPath), Paths.get(toPath), StandardCopyOption.REPLACE_EXISTING);
                 } catch(Exception e) {
                     throw new FileHandleException(10001, "Copy File Error!, " +
                             "from:[" + fromPath + "], to:[" + toPath + "]\"", e);

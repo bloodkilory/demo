@@ -47,7 +47,7 @@ public class Emp {
      */
     @Deprecated
     private static class SingletonBuilder {
-        public static Builder builder = new Builder();
+        static Builder builder = new Builder();
     }
 
     /**
