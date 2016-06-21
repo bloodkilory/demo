@@ -11,7 +11,7 @@ import com.example.pojo.Emp;
  * @author yangkun
  *         generate on 16/6/20
  */
-public class BuilderTest {
+public class BuilderDemo {
 
     private static List<Emp> emps = new ArrayList<>();
 

@@ -1,6 +1,8 @@
 package com.example.util;
 
 /**
+ * 简单链表
+ *
  * @author yangkun
  *         generate on 16/6/19
  */

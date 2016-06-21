@@ -5,17 +5,19 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 /**
+ * 二叉树
+ *
  * @author bloodkilory
  *         generate on 15/6/13
  */
-public class BinaryTree<T extends Number> implements Iterable<BinaryTree> {
+@SuppressWarnings("unchecked")
+public class BinaryTree<T extends Comparable> implements Iterable<BinaryTree> {
 	private Node root;
 	private int size;
 	private int foot;
 	private Object[] elements;
 
 	public BinaryTree() {
-//		this.elements = new Object[10];
 	}
 
 	/**
@@ -73,16 +75,16 @@ public class BinaryTree<T extends Number> implements Iterable<BinaryTree> {
 	}
 
 	private class Node {
-		private int data;
+		private T data;
 		private Node left;
 		private Node right;
 
-		Node(int data) {
+		Node(T data) {
 			this.data = data;
 		}
 
 		void addNode(Node newNode) {
-			if(this.data > newNode.data) {
+			if(this.data.compareTo(newNode.data) > 0) {
 				if(this.left == null) {
 					this.left = newNode;
 					size++;
@@ -113,7 +115,7 @@ public class BinaryTree<T extends Number> implements Iterable<BinaryTree> {
 		}
 	}
 
-	public void add(int data) {
+	public void add(T data) {
 		Node newNode = new Node(data);
 		if(this.root == null) {
 			this.root = newNode;
