@@ -24,6 +24,7 @@ public class Counter {
                 for(int i1 = 0; i1 < 100; i1++) {
                     cas.count();
                     cas.safeCount();
+                    cas.safeCount2();
                     cas.vcount();
                 }
             });
@@ -41,6 +42,7 @@ public class Counter {
         }
         System.out.println(cas.i);
         System.out.println(cas.atomicI.get());
+        System.out.println(cas.atomicJ.get());
         System.out.println(cas.vi);
         System.out.println(String.format("Time: %d ms", System.currentTimeMillis() - start));
     }
