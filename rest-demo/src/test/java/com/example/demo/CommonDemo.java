@@ -6,6 +6,14 @@ package com.example.demo;
  */
 public class CommonDemo {
     public static void main(String[] args) {
-        System.out.println(3 % 2);
+
+
+        int j = 0;
+        for(int i = 10; i <= 10000; i *= 10) {
+            System.out.println(i);
+            ++j;
+        }
+        System.out.println(j);
+        System.out.println(Math.log10(10000));
     }
 }

@@ -32,7 +32,7 @@ public class Counter {
         }
         ts.forEach(Thread::start);
 
-        // 将所有线程join到main线程中,防止mian方法结束时计算线程还未结束
+        // 调用thread.join(), main线程必须等待thread线程终止
         for(Thread t : ts) {
             try {
                 t.join();

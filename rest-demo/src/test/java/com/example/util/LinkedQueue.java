@@ -60,7 +60,7 @@ public class LinkedQueue<T> implements Queue<T> {
         if(isEmpty()) {
             return null; // 下溢
         }
-        if(head.next == null) {
+        if(head.next == null) { // 边界处理
             rear = null;
         }
         T tmp = this.head.data;

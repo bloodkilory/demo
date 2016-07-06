@@ -9,6 +9,7 @@ package com.example.util;
 public class LinkNode {
     private int data;
     private LinkNode next;
+    private static int complex = 0;
 
     public LinkNode() {
     }
@@ -35,6 +36,7 @@ public class LinkNode {
     }
 
     public static LinkNode mergeLink(LinkNode a, LinkNode b) {
+        complex++;
         if(a == null) {
             return b;
         }
@@ -50,5 +52,9 @@ public class LinkNode {
             merged.next = mergeLink(a, b.next);
         }
         return merged;
+    }
+
+    public static int getComplex() {
+        return complex;
     }
 }
