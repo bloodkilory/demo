@@ -4,7 +4,11 @@ package com.example.util;
  * @author bloodkilory
  *         generate on 15/5/25
  */
-public class SortUtil {
+public final class SortUtil {
+
+	private SortUtil() {
+	}
+
 	public static void quickSort(int[] array, int low, int high) {
 		if(low > high) {
 			return;

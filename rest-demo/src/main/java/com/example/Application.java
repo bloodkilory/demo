@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @SpringBootApplication
 @EnableAutoConfiguration
-@ImportResource("applicationContext.xml")
+@ImportResource({"applicationContext.xml", "spring-rpc.xml"})
 @PropertySources({@PropertySource(value = "classpath:configs.properties")})
 @ComponentScan
 public class Application {

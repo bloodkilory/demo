@@ -8,8 +8,11 @@ import java.util.concurrent.TimeUnit;
  * @author yangkun
  *         generate on 16/7/6
  */
-public class Timer {
+public final class Timer {
     private static final ThreadLocal<Long> TIME_THREADLOCAL = new ThreadLocal<>();
+
+    private Timer() {
+    }
 
     public static final void begin() {
         TIME_THREADLOCAL.set(System.currentTimeMillis());

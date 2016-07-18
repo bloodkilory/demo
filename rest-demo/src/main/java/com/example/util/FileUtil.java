@@ -14,7 +14,10 @@ import com.example.exception.FileHandleException;
 /**
  * Created by bloodkilory on 15/4/16.
  */
-public class FileUtil {
+public final class FileUtil {
+
+    private FileUtil() {
+    }
 
     public enum Method {
         LINE,

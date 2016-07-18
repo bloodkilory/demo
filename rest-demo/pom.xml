@@ -8,11 +8,19 @@
 	<artifactId>rest-demo</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
+	<properties>
+		<dubbo.version>2.5.3</dubbo.version>
+		<zookeeper.version>3.4.6</zookeeper.version>
+		<zkclient.version>0.1</zkclient.version>
+		<curator-version>1.3.3</curator-version>
+	</properties>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.3.5.RELEASE</version>
 	</parent>
+
 
 	<dependencies>
 		<!--第三方依赖-->
@@ -107,6 +115,27 @@
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-all</artifactId>
 			<version>2.4.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>${dubbo.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>${zookeeper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>${zkclient.version}</version>
 		</dependency>
 		<!--<dependency>-->
 			<!--<groupId>org.codehaus.woodstox</groupId>-->

@@ -3,6 +3,7 @@ package com.example.demo;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -84,5 +85,44 @@ public class StreamDemo {
 				.sorted(Comparator.comparing(Book::getPrice))
 				.map(Book::getName)
 				.collect(Collectors.toList());
+	}
+
+	/**
+	 * 测试规约
+	 */
+	@Test
+	public void testReduce() {
+		List<Integer> arr = Arrays.asList(1, 2, 3, 4, 5);
+		int num = arr.stream().reduce(0, (a, b) -> a + b);
+		System.out.println(num);
+		int num2 = arr.stream().reduce(0, Integer::sum);
+		System.out.println(num2);
+		Optional<Integer> num3 = arr.stream().reduce((a, b) -> a + b);
+		System.out.println(num3.get());
+	}
+
+	/**
+	 * 测试最大最小值
+	 */
+	@Test
+	public void testMinMax() {
+		List<Integer> arr = Arrays.asList(1, 2, 3, 4, 5);
+		Optional<Integer> max = arr.stream().reduce(Integer::max);
+		System.out.println(max.get());
+		Optional<Integer> min = arr.stream().reduce(Integer::min);
+		System.out.println(min.get());
+	}
+
+	/**
+	 * 测试流元素个数
+	 */
+	@Test
+	public void testCount() {
+		List<Integer> arr = Arrays.asList(1, 2, 3, 4, 5);
+		Stream<Integer> s1 = arr.stream();
+		Stream<Integer> s2 = arr.stream();
+		long count = s1.count();
+		int c2 = s2.map(a -> 1).reduce(0, Integer::sum);
+		System.out.println(count + "," + c2);
 	}
 }
