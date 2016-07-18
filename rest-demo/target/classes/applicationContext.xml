@@ -4,6 +4,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
 	http://www.springframework.org/schema/tx 
@@ -11,7 +12,13 @@
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
+	<dubbo:application name="rest-demo"/>
+	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+	<dubbo:protocol name="dubbo" port="20881"/>
+	<dubbo:service interface="com.example.service.BookService" ref="bookService" group="dubbo"/>
 
 </beans>
