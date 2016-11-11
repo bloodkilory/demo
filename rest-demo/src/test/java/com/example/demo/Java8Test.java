@@ -17,7 +17,7 @@ import com.example.pojo.Member;
  */
 public class Java8Test {
 
-    private final Integer NUM = 3000000;
+    private final Integer NUM = 30000;
 
     private List<Member> members = new ArrayList<>(NUM);
 
@@ -40,6 +40,8 @@ public class Java8Test {
 
         members.stream().limit(5).forEach(member -> System.out.println(member.getBirthday()));
         System.out.println("********");
+
+        System.out.println(System.currentTimeMillis());
     }
 
     private void test2() {

@@ -9,13 +9,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.Application;
+import com.example.config.LocalRedisConfig;
 import com.example.dao.DictionaryDao;
 
 /**
  * @author bloodkilory
  *         generate on 15/6/4
  */
-@ContextConfiguration(classes = {Application.class})
+@ContextConfiguration(classes = {Application.class, LocalRedisConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DictionaryDaoTest {
 	@Resource
@@ -26,9 +27,7 @@ public class DictionaryDaoTest {
 
 	@Test
 	public void pushTest() {
-		String meaning = "this is no meaning";
-		Long index = dictionaryDao.add("nothing", meaning);
-		System.out.println(index);
+
 	}
 
 	@Test

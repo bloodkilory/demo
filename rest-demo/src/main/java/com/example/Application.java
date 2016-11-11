@@ -12,6 +12,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,7 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @SpringBootApplication
 @EnableAutoConfiguration
-@ImportResource({"applicationContext.xml", "spring-rpc.xml"})
+@ImportResource({"applicationContext.xml"})
 @PropertySources({@PropertySource(value = "classpath:configs.properties")})
 @ComponentScan
 public class Application {

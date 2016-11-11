@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.example.dao.BookDao;
@@ -26,5 +27,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBook(int id) {
         return bookDao.findById(id);
+    }
+
+    @Scheduled(cron = "0 */10 * * * ?")
+    public void test() {
+        System.out.println("sche:spring-task");
     }
 }
