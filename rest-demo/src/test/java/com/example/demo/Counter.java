@@ -3,6 +3,7 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.LongAdder;
 
 /**
  * @author yangkun
@@ -12,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Counter {
     private AtomicInteger atomicI = new AtomicInteger(0);
     private AtomicInteger atomicJ = new AtomicInteger(0);
+    private LongAdder longAdder = new LongAdder();
     private int i = 0;
     private volatile int vi = 0;
 
@@ -26,6 +28,7 @@ public class Counter {
                     cas.safeCount();
                     cas.safeCount2();
                     cas.vcount();
+                    cas.addLong();
                 }
             });
             ts.add(t);
@@ -40,10 +43,11 @@ public class Counter {
                 ex.printStackTrace();
             }
         }
-        System.out.println(cas.i);
-        System.out.println(cas.atomicI.get());
-        System.out.println(cas.atomicJ.get());
-        System.out.println(cas.vi);
+        System.out.println("normal i:" + cas.i);
+        System.out.println("atomic i:" + cas.atomicI.get());
+        System.out.println("atomic j:" + cas.atomicJ.get());
+        System.out.println("volatile i:" + cas.vi);
+        System.out.println("longAdder i:" + cas.longAdder);
         System.out.println(String.format("Time: %d ms", System.currentTimeMillis() - start));
     }
 
@@ -55,6 +59,10 @@ public class Counter {
                 break;
             }
         }
+    }
+
+    private void addLong() {
+        longAdder.increment();
     }
 
     private void safeCount2() {

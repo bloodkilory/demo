@@ -26,13 +26,13 @@ public final class FileUtil {
     }
 
     /**
-     * copy file with old way
-	 *
-	 * @param fromPath
-	 * @param toPath
-	 * @throws java.io.IOException
-	 * @should test
-	 */
+     * copy file with old way with stream
+     *
+     * @param fromPath
+     * @param toPath
+     * @throws java.io.IOException
+     * @should test
+     */
 	public static void copyFile(String fromPath, String toPath) throws IOException {
         try(InputStream input = new FileInputStream(fromPath);
             OutputStream output = new FileOutputStream(toPath)) {
@@ -46,11 +46,11 @@ public final class FileUtil {
         }
     }
 
-	/**
-     * copy file with fusion mode
+    /**
+     * copy file with fusion mode with reader
      *
      * @param fromPath
-	 * @param toPath
+     * @param toPath
      * @param charset {@link StandardCharsets#UTF_8 UTF_8}
      * @throws IOException
 	 */
@@ -82,7 +82,7 @@ public final class FileUtil {
             case LINE:
                 try {
 					List<String> lines = Files.readAllLines(Paths.get(fromPath), charset);
-                    Files.write(Paths.get(toPath), lines, charset, StandardOpenOption.APPEND);
+                    Files.write(Paths.get(toPath), lines, charset, StandardOpenOption.APPEND, StandardOpenOption.CREATE);
                 } catch(Exception e) {
                     throw new FileHandleException(10001, "Copy File Error!, " +
                             "from:[" + fromPath + "], to:[" + toPath + "]\"", e);

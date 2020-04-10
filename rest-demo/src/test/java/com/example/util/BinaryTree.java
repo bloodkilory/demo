@@ -102,8 +102,12 @@ public class BinaryTree<T extends Comparable> implements Iterable<BinaryTree> {
 		}
 
 		/**
-		 * 二叉树的遍历，采用中序遍历可进行由小到大排序
-		 */
+         * 二叉树的遍历，采用中序遍历可进行由小到大排序
+         * 此方法为中序遍历
+         * <p>
+         * 先序遍历 -- 先输出当前节点，再遍历左子树，最后遍历右子树
+         * 后序遍历 -- 先遍历左子树，再遍历右子树，最后输出节点
+         */
 		void traverse() {
 			if(this.left != null) {
 				this.left.traverse();

@@ -32,6 +32,12 @@ public class TraceService {
             final Map<String, Future> futures = new HashMap<>();
             Future future = executorService.scheduleAtFixedRate(() -> {
 
+                if(Boolean.TRUE.equals(flag.get(orderNo))) {
+                    Future f = futures.get(orderNo);
+                    if(f != null) f.cancel(true);
+                    flag.remove(orderNo);
+                }
+
                 try {
                     String result = Thread.currentThread().getName(); //模拟获取数据
                     save(orderNo, result); //模拟存储数据
@@ -39,13 +45,8 @@ public class TraceService {
                     LOGGER.error("something wrong!", t);
                 }
 
-                if(Boolean.TRUE.equals(flag.get(orderNo))) {
-                    Future f = futures.get(orderNo);
-                    if(f != null) f.cancel(true);
-                }
             }, 0, 3, TimeUnit.SECONDS);
             futures.put(orderNo, future);
-            flag.put(orderNo, false);
         } catch(Exception e) {
             throw new RuntimeException(e);
         }

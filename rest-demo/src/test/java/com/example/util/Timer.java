@@ -14,11 +14,11 @@ public final class Timer {
     private Timer() {
     }
 
-    public static final void begin() {
+    public static void begin() {
         TIME_THREADLOCAL.set(System.currentTimeMillis());
     }
 
-    public static final long end() {
+    public static long end() {
         return System.currentTimeMillis() - TIME_THREADLOCAL.get();
     }
 

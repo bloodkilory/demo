@@ -60,7 +60,7 @@ public class ArrayQueue<T> implements Queue<T> {
     }
 
     public void resize() {
-        T[] tmp = (T[]) new Object[2 * data.length];
+        T[] tmp = (T[]) new Object[data.length << 1];
 
         if(front < rear) {
             //直接拷贝data[front..rear]到tmp[0..rear-front]
@@ -72,7 +72,6 @@ public class ArrayQueue<T> implements Queue<T> {
 
             //注意rear=front-1
             System.arraycopy(data, 0, tmp, data.length - front, front);
-
         }
         data = tmp;
     }

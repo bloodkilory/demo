@@ -2,21 +2,25 @@ package com.example.util;
 
 /**
  * @author bloodkilory
- *         generate on 15/5/25
+ * generate on 15/5/25
  */
 public final class SortUtil {
 
 	private SortUtil() {
 	}
 
+	/**
+	 * 快速排序
+	 * 时间复杂度 O(nlogn)
+	 * @param array
+	 * @param low
+	 * @param high
+	 */
 	public static void quickSort(int[] array, int low, int high) {
-		if(low > high) {
-			return;
-		}
+		if(low > high) return; // 递归结束条件
 		int i = low;
 		int j = high;
 		int pivot = array[low];
-		int temp;
 		while(i != j) {
 			while(i < j && array[j] >= pivot) {
 				j--;
@@ -25,7 +29,7 @@ public final class SortUtil {
 				i++;
 			}
 			if(i < j) {
-				temp = array[i];
+				int temp = array[i];
 				array[i] = array[j];
 				array[j] = temp;
 			}

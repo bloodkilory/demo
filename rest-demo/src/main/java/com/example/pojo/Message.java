@@ -13,6 +13,16 @@ public class Message {
 
     private String content;
 
+    public Message() {
+    }
+
+    public Message(Integer id, String command, String description, String content) {
+        this.id = id;
+        this.command = command;
+        this.description = description;
+        this.content = content;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -43,5 +53,16 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Message{");
+        sb.append("id=").append(id);
+        sb.append(", command='").append(command).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", content='").append(content).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

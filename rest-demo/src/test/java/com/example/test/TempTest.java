@@ -10,17 +10,8 @@ public class TempTest {
 
     @Test
     public void test1() {
-        float a = 2.2154f;
-        float b = 0.1f;
-        float c = 4.513f;
-        float e = 5f;
-        float f = 5.8f;
-        calc(a);
-        calc(b);
-        calc(c);
-        calc(e);
-        calc(f);
-        System.out.println(System.currentTimeMillis());
+        String tt = "nnn<br/>aaa";
+        System.out.println(tt.replaceAll("<br/>", "ccc"));
 
     }
 

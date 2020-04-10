@@ -1,18 +1,25 @@
 package com.example;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.ManagementServerProperties;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,17 +35,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Yangkun
- *
  */
-@SpringBootApplication
-@EnableAutoConfiguration
+@SpringBootApplication(exclude = {RedisAutoConfiguration.class, MongoAutoConfiguration.class,
+		MongoDataAutoConfiguration.class, KafkaAutoConfiguration.class})
 @ImportResource({"applicationContext.xml"})
 @PropertySources({@PropertySource(value = "classpath:configs.properties")})
-@ComponentScan
+@EnableScheduling
 public class Application {
 
 	/**
 	 * Start Application
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -53,13 +60,14 @@ public class Application {
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesConfig() {
 		PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        placeholderConfigurer.setIgnoreUnresolvablePlaceholders(false);
-        placeholderConfigurer.setOrder(1);
+		placeholderConfigurer.setIgnoreUnresolvablePlaceholders(true);
+		placeholderConfigurer.setOrder(1);
 		return placeholderConfigurer;
 	}
 
 	/**
 	 * Configure Jsckson ObjectMapper
+	 *
 	 * @return
 	 */
 	@Bean
@@ -73,6 +81,7 @@ public class Application {
 
 	/**
 	 * Customize Embedded Tomcat Container for GZip
+	 *
 	 * @return
 	 */
 	@Bean
@@ -82,10 +91,11 @@ public class Application {
 					AbstractHttp11Protocol httpProtocol = (AbstractHttp11Protocol) connector.getProtocolHandler();
 					httpProtocol.setCompression("on");
 					httpProtocol.setCompressionMinSize(64);
-					String mimeTypes = httpProtocol.getCompressableMimeTypes();
-					String mimeTypesWithJson = mimeTypes + "," + MediaType.APPLICATION_JSON_VALUE
-							+ "," + MediaType.APPLICATION_XML_VALUE;
-					httpProtocol.setCompressableMimeTypes(mimeTypesWithJson);
+					String[] mimeTypes = httpProtocol.getCompressibleMimeTypes();
+					List<String> mimeList = Arrays.stream(mimeTypes).collect(Collectors.toList());
+					mimeList.addAll(Arrays.asList(MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE));
+//					httpProtocol.setCompressibleMimeType();
+//					httpProtocol.setCompressableMimeTypes(mimeList.toArray());
 				}
 		);
 	}
@@ -103,8 +113,8 @@ public class Application {
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(new SpringSecurityUserDetailConfig(userDao));
-        }
+			auth.userDetailsService(new SpringSecurityUserDetailConfig(userDao));
+		}
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {

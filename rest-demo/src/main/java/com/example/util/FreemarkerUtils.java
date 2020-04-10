@@ -17,7 +17,7 @@ import freemarker.template.TemplateException;
 public final class FreemarkerUtils {
 
     /**
-     * ²»¿ÉÊµÀı»¯
+     * ä¸å¯å®ä¾‹åŒ–
      */
     private FreemarkerUtils() {
     }
@@ -41,28 +41,26 @@ public final class FreemarkerUtils {
     }
 
     /**
-     * ½âÎö×Ö·û´®Ä£°å
+     * è§£æå­—ç¬¦ä¸²æ¨¡æ¿
      *
-     * @param template
-     *            ×Ö·û´®Ä£°å
-     * @param model
-     *            Êı¾İ
-     * @return ½âÎöºóÄÚÈİ
+     * @param template å­—ç¬¦ä¸²æ¨¡æ¿
+     * @param model    æ•°æ®
+     * @return è§£æåå†…å®¹
      */
     public static String process(String template, Map<String, ?> model) throws IOException, TemplateException {
         return process(template, model, configuration);
     }
 
     /**
-     * ½âÎö×Ö·û´®Ä£°å
+     * è§£æå­—ç¬¦ä¸²æ¨¡æ¿
      *
      * @param template
-     *            ×Ö·û´®Ä£°å
+     *            å­—ç¬¦ä¸²æ¨¡æ¿
      * @param model
-     *            Êı¾İ
+     *            æ•°æ®
      * @param configuration
-     *            ÅäÖÃ
-     * @return ½âÎöºóÄÚÈİ
+     *            é…ç½®
+     * @return è§£æåå†…å®¹
      */
     public static String process(String template, Map<String, ?> model, Configuration configuration) throws IOException, TemplateException {
         if (template == null) {
